@@ -1,16 +1,17 @@
 [FileName,PathName] = uigetfile('*.png');
 global imagen
+%  global C2
+%  global B2
 imagen = (imread([PathName '\' FileName])); 
 axes(handles.imagenoriginal);
 imshow (imagen),title('IMAGEN ORIGINAL');
 set(imagenoriginal,'toolbar','figure');
 set(imagenoriginal,'menubar','figure');
 if isempty(x)
-
     diametroreferencial=1.5;
 elseif y<=3; 
     diametroreferencial=0;
-elseif (y>3)&(y<6);
+elseif (y>3)&&(y<6);
     diametroreferencial=1.5;
 elseif y>=6
     diametroreferencial=2.5;
@@ -19,7 +20,8 @@ end
 RGB2 = imadjust(imagen,[0.3 0.7],[]);
 imagen_g=rgb2gray(imagen);
 % convertir imagen a binaria (negro y blanco) 
-imagen_b= ~im2bw(imagen_g); tam=size(imagen_b);
+imagen_b= ~im2bw(imagen_g); 
+tam=size(imagen_b);
 tama=tam(1)*tam(2);
 if tama<=2000
     %elimina objetos con menos de 20 pixeles 
@@ -55,7 +57,6 @@ imagen_b= imclearborder(imagen_h, 8);
 sd = strel('diamond',1);
 %difumina la imagen
 imagen_f = imerode(imagen_b,sd);
-
 imagen_final = imerode(imagen_f,sd);
 axes(handles.imagen_binaria);
 imshow (imagen_final),title('IMAGEN BINARIA');
@@ -102,8 +103,8 @@ for j=1:tamx
     t= ubix(j,1); 
     w(j)= B2([t],[1]);
 end
-yarri=max(w); 
-yabaj=min(w);
+yarri = max(w); 
+yabaj = min(w);
 %calculo de la variación en pixeles de los lados der e izq 
 vder=xder-C2(1);
 vizq=C2(1)-xizq;
@@ -151,7 +152,7 @@ porbl=round(porbl);
 if porbl<=37.2
     puntobl=1*0.5;
 else
-    puntobl=0
+    puntobl=0;
 end
 ne1=sum(sum(((h1>0.9)&(h1<1))));
 ne2=sum(sum(h1>0));
@@ -174,7 +175,7 @@ if porro<=37.2
 else
     puntoro=0;
 end
-mo1=sum(sum(um(((h1>=0.1)&(h1<0.2))));
+mo1=sum(sum(um(((h1>=0.1)&(h1<0.2)))));
 mc2=sum(sum(h1>0));
 %numero de pixeles	totales dentro del contorno 
 pormc=(mc1/mc2)*100;
@@ -325,15 +326,11 @@ else
     punto1=0.1;
 end
 
-
-
 if radio2<=tolerancia;
     punto2=0;
 else
     punto2=0.1;
 end
-
-
 
 if varri<=tolerancia;
     punto3=0;
@@ -342,15 +339,12 @@ else
     punto3=0.1;
 end
 
-
-
 if radio4<=tolerancia;
     punto4=0;
     
 else
     punto4=0.1;
 end
-
 
 if vizq<=tolerancia;
     punto5=0;
@@ -365,14 +359,11 @@ else
     punto6=0.1;
 end
 
-
-
 if varabaj<=tolerancia;
     punto7=0;
 else
     punto7=0.1;
 end
-
 
 if radio8<=tolerancia;
     punto8=0;
